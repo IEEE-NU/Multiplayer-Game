@@ -1,0 +1,16 @@
+
+Tutorial 1:
+https://www.youtube.com/watch?annotation_id=annotation_299760&feature=iv&list=PLFt_AvWsXl0f0hqURlhyIoAabKPgRsqjz&src_vid=d3HEFiDFApI&v=MbWK8bCAU2w
+
+Tutorial 2 (No complete Project, but some useful files)
+https://www.youtube.com/watch?v=UbPiCgCkHTE
+
+---Other topics----
+
+Overview of Sprites and Animations:
+
+https://www.youtube.com/watch?v=oK_NzdVSxaQ
+
+Mouse Input:
+
+https://www.youtube.com/watch?v=riX1wv0JYv0
