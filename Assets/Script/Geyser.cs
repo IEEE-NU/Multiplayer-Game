@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic; //REMEMBER! In order to use lists! Make sure it is System.Collections.Generic instead of System.Collections
-
+// Example of an object that can affect the physics of another object.
 public class Geyser : MonoBehaviour {
 
 	public string geyserID = "default";
@@ -17,7 +17,7 @@ public class Geyser : MonoBehaviour {
 			Vector3 upForce = new Vector3 (0, geyserSpeed, 0);
 			foreach(Controller2D cont in overlappingControl) {
 				Debug.Log (upForce);
-				cont.Move (upForce);
+				cont.Move (upForce); // adds a force on the object.
 			}
 			geyserTime -= Time.deltaTime;
 		}
@@ -28,10 +28,10 @@ public class Geyser : MonoBehaviour {
 	}
 	internal void OnTriggerEnter2D(Collider2D other) {
 		Debug.Log ("collision detected with Geyser");
-		overlappingControl.Add (other.gameObject.GetComponent<Controller2D> ());
-	}
+		overlappingControl.Add (other.gameObject.GetComponent<Controller2D> ()); //Adds the other object's Controller2D to list of contacting objects
+	} 
 	internal void OnTriggerExit2D(Collider2D other) {
 		Debug.Log ("Collision ended with Geyser");
-		overlappingControl.Remove (other.gameObject.GetComponent<Controller2D> ());
+		overlappingControl.Remove (other.gameObject.GetComponent<Controller2D> ()); //Removes the object from the list
 	}
 }

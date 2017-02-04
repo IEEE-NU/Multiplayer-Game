@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// This component represents a controllable player character and has controls
+// that you can modify. 
 [RequireComponent (typeof (Controller2D))]
 public class Player : MonoBehaviour {
 

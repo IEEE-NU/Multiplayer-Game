@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+// This component can be given to an object in order to give it "physics"
+// AKA, the object has gravity and can collide with things.
 [RequireComponent (typeof (BoxCollider2D))]
 public class Controller2D : MonoBehaviour {
 

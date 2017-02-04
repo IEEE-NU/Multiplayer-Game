@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+//This provides an example of an "interactable" object.
+//an object that players can press the "use" button on and then can perform an action.
 public class Lever : MonoBehaviour {
 
 	public string collideThisPlayer = "Player 1";
@@ -30,7 +32,7 @@ public class Lever : MonoBehaviour {
 	}
 
 	internal void OnTriggerEnter2D(Collider2D other) {
-		if (other.gameObject.GetComponent<Player> ()) {
+		if (other.gameObject.GetComponent<Player> ()) { //This is how you can access variables and functions in another component.
 			Debug.Log ("Player Added");
 			overlappingPlayer.Add (other.gameObject.GetComponent<Player> ());
 		}
