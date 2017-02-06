@@ -4,7 +4,6 @@ using System.Collections;
 [RequireComponent (typeof (Controller2D))]
 public class Player : MonoBehaviour {
 
-	public int health = 100;
 	public float jumpHeight = 4;
 	public float timeToJumpApex = .4f;
 	float accelerationTimeAirborne = .2f;
