@@ -77,8 +77,13 @@
   <ItemGroup>
     <Compile Include="Assets\Script\CameraFollow.cs" />
     <Compile Include="Assets\Script\Controller2D.cs" />
+    <Compile Include="Assets\Script\Geyser.cs" />
+    <Compile Include="Assets\Script\Ladder.cs" />
+    <Compile Include="Assets\Script\Lever.cs" />
     <Compile Include="Assets\Script\Player.cs" />
+    <Compile Include="Assets\Script\VanishingBar.cs" />
     <Compile Include="Assets\Script\deathZone.cs" />
+    <Compile Include="Assets\grabber.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\test.txt" />
