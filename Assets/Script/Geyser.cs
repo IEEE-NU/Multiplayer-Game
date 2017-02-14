@@ -6,8 +6,8 @@ public class Geyser : MonoBehaviour {
 	public string geyserID = "default";
 	List<Controller2D> overlappingControl = new List<Controller2D> (); 
 	public float geyserTime = 0.0f;
-	public float geyserSpeed = -60.0f;
-
+	public float geyserSpeed = 5.0f;
+	public float maxVerticalSpeed = 1.0f;
 	// Use this for initialization
 	void Start () {}
 	
@@ -15,9 +15,12 @@ public class Geyser : MonoBehaviour {
 	void Update () {
 		if (geyserTime > 0.0f) {
 			Vector3 upForce = new Vector3 (0, geyserSpeed, 0);
-			foreach(Controller2D cont in overlappingControl) {
+			foreach (Controller2D cont in overlappingControl) {
 				Debug.Log (upForce);
-				cont.Move (upForce); // adds a force on the object.
+				Debug.Log (cont.velocity.y);
+				if (cont.velocity.y < maxVerticalSpeed) {
+					cont.addToVelocity (upForce); // adds a force on the object.
+				}
 			}
 			geyserTime -= Time.deltaTime;
 		}

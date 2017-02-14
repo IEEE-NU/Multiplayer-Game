@@ -11,14 +11,17 @@ public class Controller2D : MonoBehaviour {
 	public int horizontalRayCount = 4;
 	public int verticalRayCount = 4;
 	public Vector2 playerInput = Vector2.zero;
+	public Vector2 accumulatedVelocity = Vector2.zero;
 	public bool isGravity = true;
-	public float gravityScale = 1.0f;
+	public float gravityScale = 40.0f;
+	public float health = 100.0f;
+	public bool alive = true;
 
 	float maxClimbAngle = 80;
 
 	float horizontalRaySpacing;
 	float verticalRaySpacing;
-	Vector3 velocity;
+	public Vector3 velocity;
 
 	BoxCollider2D collider;
 	RaycastOrigins raycastOrigins;
@@ -36,31 +39,50 @@ public class Controller2D : MonoBehaviour {
 	public void setGravityScale(float gravScale) {
 		gravityScale = gravScale;
 	}
-		
+
+	void Update() {
+		if (Mathf.Abs (accumulatedVelocity.x) > 0.0f) {
+			accumulatedVelocity.x *= 0.95f;
+		} else {
+			accumulatedVelocity.x = 0f;
+		}
+		if (Mathf.Abs (accumulatedVelocity.y) > 0.0f) {
+			accumulatedVelocity.y *= 0.95f;
+		} else {
+			accumulatedVelocity.y = 0f;
+		}
+	}
+
+	public void addToVelocity(Vector2 veloc) {
+		accumulatedVelocity += veloc;
+	}
+
 	public void Move(Vector3 veloc, Vector2 input) {
 		//Debug.Log ("----");
 		//Debug.Log (veloc.y);
-		if (isGravity) {
-			veloc.y = veloc.y +  (gravityScale * Time.deltaTime);
+		//if (isGravity) {
+		//		veloc.y = veloc.y +  (gravityScale * Time.deltaTime);
 		//	Debug.Log (veloc.y);
-		}
+		//}
 
 		veloc = veloc * Time.deltaTime;
-		velocity.x += veloc.x;
-		velocity.y += veloc.y;
+		velocity.x = veloc.x;
+		velocity.x += (accumulatedVelocity.x * Time.deltaTime);
+		velocity.y = veloc.y;
+		velocity.y += (accumulatedVelocity.y * Time.deltaTime);
 		//Debug.Log (velocity.y);
 		UpdateRaycastOrigins ();
 		collisions.Reset ();
 		playerInput = input;
 	
 		if (velocity.x != 0) {
-			HorizontalCollisions (ref veloc);
+			HorizontalCollisions (ref velocity);
 		}
 		if (velocity.y != 0) {
-			VerticalCollisions (ref veloc);
+			VerticalCollisions (ref velocity);
 		}
 
-		transform.Translate (veloc);
+		transform.Translate (velocity);
 	}
 
 	void HorizontalCollisions(ref Vector3 velocity) {
