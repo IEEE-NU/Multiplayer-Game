@@ -5,8 +5,8 @@ using UnityEngine;
 public class Ladder : MonoBehaviour {
 
     public string collideThisPlayer = "Player 1";
-    public string geyserID = "default";
     List<Player> overlappingPlayer = new List<Player>();
+    List<Controller2D> overlappingControl = new List<Controller2D>();
 
     // Use this for initialization
     void Start() { }
@@ -16,17 +16,23 @@ public class Ladder : MonoBehaviour {
     {
         foreach (Player play in overlappingPlayer)
         {
-            if (Input.GetButtonDown(play.gameObject.GetComponent<Player>().upKey))
+            if (Input.GetKeyDown(play.gameObject.GetComponent<Player>().upKey))
             {
                 activateLadder(play);
             }
         }
     }
 
-    internal void activateLadder(Player interactor)
+    internal void activateLadder(Player overlappingPlayer)
     {
         Debug.Log("Activating Ladder");
-
+        Vector3 upForce = new Vector3(0, 8.0f, 0);
+        Debug.Log(upForce);
+        Debug.Log(overlappingPlayer.GetComponent<Controller2D>().velocity.y);
+        if (overlappingPlayer.GetComponent<Controller2D>().velocity.y < 1.0f)
+        {
+            overlappingPlayer.GetComponent<Controller2D>().addToVelocity(upForce); // adds a force on the object.
+        }
     }
 
     internal void OnTriggerEnter2D(Collider2D other)
