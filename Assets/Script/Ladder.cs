@@ -7,6 +7,7 @@ public class Ladder : MonoBehaviour {
     public string collideThisPlayer = "Player 1";
     List<Player> overlappingPlayer = new List<Player>();
     List<Controller2D> overlappingControl = new List<Controller2D>();
+    public float climbSpeed = 0.0f;
 
     // Use this for initialization
     void Start() { }
@@ -16,7 +17,7 @@ public class Ladder : MonoBehaviour {
     {
         foreach (Player play in overlappingPlayer)
         {
-            if (Input.GetKeyDown(play.gameObject.GetComponent<Player>().upKey))
+            if (Input.GetKey(play.gameObject.GetComponent<Player>().upKey))
             {
                 activateLadder(play);
             }
@@ -26,10 +27,10 @@ public class Ladder : MonoBehaviour {
     internal void activateLadder(Player overlappingPlayer)
     {
         Debug.Log("Activating Ladder");
-        Vector3 upForce = new Vector3(0, 8.0f, 0);
+        Vector3 upForce = new Vector3(0, climbSpeed, 0);
         Debug.Log(upForce);
         Debug.Log(overlappingPlayer.GetComponent<Controller2D>().velocity.y);
-        if (overlappingPlayer.GetComponent<Controller2D>().velocity.y < 1.0f)
+        if (overlappingPlayer.GetComponent<Controller2D>().velocity.y < 0.2f)
         {
             overlappingPlayer.GetComponent<Controller2D>().addToVelocity(upForce); // adds a force on the object.
         }

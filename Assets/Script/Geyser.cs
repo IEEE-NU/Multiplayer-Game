@@ -8,8 +8,9 @@ public class Geyser : MonoBehaviour {
 	public float geyserTime = 0.0f;
 	public float geyserSpeed = 5.0f;
 	public float maxVerticalSpeed = 1.0f;
-	// Use this for initialization
-	void Start () {}
+    public string collideThisPlayer = "Player 2";
+    // Use this for initialization
+    void Start () {}
 	
 	// Update is called once per frame
 	void Update () {
@@ -29,12 +30,19 @@ public class Geyser : MonoBehaviour {
 		Debug.Log (time);
 		geyserTime = time;
 	}
-	internal void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log ("collision detected with Geyser");
-		overlappingControl.Add (other.gameObject.GetComponent<Controller2D> ()); //Adds the other object's Controller2D to list of contacting objects
+    internal void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("collision detected with Geyser");
+        if (other.gameObject.CompareTag(collideThisPlayer))
+        {
+            overlappingControl.Add(other.gameObject.GetComponent<Controller2D>()); //Adds the other object's Controller2D to list of contacting objects
+        }
 	} 
 	internal void OnTriggerExit2D(Collider2D other) {
 		Debug.Log ("Collision ended with Geyser");
-		overlappingControl.Remove (other.gameObject.GetComponent<Controller2D> ()); //Removes the object from the list
+        if (other.gameObject.CompareTag(collideThisPlayer))
+        {
+            overlappingControl.Remove(other.gameObject.GetComponent<Controller2D>()); //Removes the object from the list
+        }
 	}
 }
