@@ -9,8 +9,13 @@ public class Geyser : MonoBehaviour {
 	public float geyserSpeed = 5.0f;
 	public float maxVerticalSpeed = 1.0f;
     public string collideThisPlayer = "Player 2";
+	ParticleSystem geyserParticles;
+	bool isPlaying = false;
     // Use this for initialization
-    void Start () {}
+    void Start () {
+		geyserParticles = GetComponentInChildren<ParticleSystem> ();
+		geyserParticles.Stop ();
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -24,6 +29,15 @@ public class Geyser : MonoBehaviour {
 				}
 			}
 			geyserTime -= Time.deltaTime;
+			if (isPlaying == false) {
+				isPlaying = true;
+				geyserParticles.Play ();
+			}
+		} else {
+			if (isPlaying == false) {
+				geyserParticles.Stop ();
+				isPlaying = true;
+			}
 		}
 	}
 	public void activateGeyser(float time) {
