@@ -82,11 +82,12 @@ public class Player : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Door1"))
+        Debug.Log(gameObject.CompareTag("Player 1"));
+        if (other.gameObject.CompareTag("Door1") && gameObject.CompareTag("Player 1"))
         {
             P1WinText.text = "Player 1 Won!";
         }
-        else if (other.gameObject.CompareTag("Door2"))
+        else if (other.gameObject.CompareTag("Door2") && gameObject.CompareTag("Player 2"))
         {
             P2WinText.text = "Player 2 Won!";
         }

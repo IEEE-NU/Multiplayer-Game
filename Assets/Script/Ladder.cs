@@ -5,9 +5,10 @@ using UnityEngine;
 public class Ladder : MonoBehaviour {
 
     public string collideThisPlayer = "Player 1";
-    public string geyserID = "default";
     List<Player> overlappingPlayer = new List<Player>();
-	public float maxVertical = 40;
+    List<Controller2D> overlappingControl = new List<Controller2D>();
+    public float climbSpeed = 0.0f;
+
     // Use this for initialization
     void Start() { }
 
@@ -16,21 +17,23 @@ public class Ladder : MonoBehaviour {
     {
         foreach (Player play in overlappingPlayer)
         {
-            if (Input.GetButtonDown(play.gameObject.GetComponent<Player>().upKey))
+            if (Input.GetKey(play.gameObject.GetComponent<Player>().upKey))
             {
-				Debug.Log ("Ladder upping");
                 activateLadder(play);
             }
         }
     }
 
-    internal void activateLadder(Player interactor)
+    internal void activateLadder(Player overlappingPlayer)
     {
-		Controller2D cont = interactor.GetComponent<Controller2D> ();
         Debug.Log("Activating Ladder");
-		if (cont.velocity.y < maxVertical) {
-			cont.addToVelocity (new Vector2(0,-40f)); // adds a force on the object.
-		}
+        Vector3 upForce = new Vector3(0, climbSpeed, 0);
+        Debug.Log(upForce);
+        Debug.Log(overlappingPlayer.GetComponent<Controller2D>().velocity.y);
+        if (overlappingPlayer.GetComponent<Controller2D>().velocity.y < 0.2f)
+        {
+            overlappingPlayer.GetComponent<Controller2D>().addToVelocity(upForce); // adds a force on the object.
+        }
     }
 
     internal void OnTriggerEnter2D(Collider2D other)
