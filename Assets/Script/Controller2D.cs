@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 // This component can be given to an object in order to give it "physics"
 // AKA, the object has gravity and can collide with things.
 [RequireComponent (typeof (BoxCollider2D))]
@@ -22,6 +22,8 @@ public class Controller2D : MonoBehaviour {
 	float horizontalRaySpacing;
 	float verticalRaySpacing;
 	public Vector3 velocity;
+	List<Vector2> CharForces = new List<Vector2>();
+	List<float> timeForces = new List<float>();
 
 	BoxCollider2D collider;
 	RaycastOrigins raycastOrigins;
@@ -35,6 +37,11 @@ public class Controller2D : MonoBehaviour {
 	public void Move(Vector3 velocity) {
 		Move (velocity, Vector2.zero);
 	}
+	public void addSelfForce(Vector2 force, float duration) {
+		CharForces.Add (force);
+		timeForces.Add (duration);
+	}
+
 
 	public void setGravityScale(float gravScale) {
 		gravityScale = gravScale;
@@ -75,6 +82,16 @@ public class Controller2D : MonoBehaviour {
 		collisions.Reset ();
 		playerInput = input;
 	
+		for (int i = CharForces.Count - 1; i >= 0; i--) {
+			Vector2 selfVec = CharForces [i];
+			velocity = new Vector3(velocity.x + (selfVec.x * Time.deltaTime),velocity.y + (selfVec.y * Time.deltaTime),velocity.z);
+			timeForces [i] = timeForces [i] - Time.deltaTime;
+			if (timeForces [i] < 0f) {
+				CharForces.RemoveAt (i);
+				timeForces.RemoveAt (i);
+			}
+		}
+
 		if (velocity.x != 0) {
 			HorizontalCollisions (ref velocity);
 		}

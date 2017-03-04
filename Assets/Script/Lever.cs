@@ -55,12 +55,14 @@ public class Lever : MonoBehaviour {
 	internal void OnTriggerEnter2D(Collider2D other) {
 		if (other.gameObject.GetComponent<Player> ()) { //This is how you can access variables and functions in another component.
 			Debug.Log ("Player Added");
+			other.gameObject.GetComponent<Controller2D> ().setGravityScale (0.0f);
 			overlappingPlayer.Add (other.gameObject.GetComponent<Player> ());
 		}
 	}
 	internal void OnTriggerExit2D(Collider2D other) {
 		if (other.gameObject.GetComponent<Player> ()) {
 			Debug.Log ("Player Removed");
+			other.gameObject.GetComponent<Controller2D> ().setGravityScale (1.0f);
 			overlappingPlayer.Remove (other.gameObject.GetComponent<Player> ());
 		}
 	}
