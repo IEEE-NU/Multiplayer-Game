@@ -53,6 +53,7 @@
      <Compile Include="Assets\Script\Ladder.cs" />
      <Compile Include="Assets\Script\Lever.cs" />
      <Compile Include="Assets\Script\Player.cs" />
+     <Compile Include="Assets\Script\PlayerSpecific.cs" />
      <Compile Include="Assets\Script\VanishingBar.cs" />
      <Compile Include="Assets\Script\deathZone.cs" />
      <Compile Include="Assets\grabber.cs" />
