@@ -28,12 +28,18 @@ public class Player : MonoBehaviour {
     public Text P1WinText;
     public Text P2WinText;
     public bool goUp = false;
+    public bool is_moving = false;
+    SpriteRenderer sprite; 
+
+    Animator anim;
 
     Controller2D controller;
 
 	public bool attemptingInteraction = false;
 
 	void Start() {
+        anim = GetComponent<Animator>();
+        sprite = GetComponent < SpriteRenderer>();
         P1WinText.text = "";
         P2WinText.text = "";
         controller = GetComponent<Controller2D> ();
@@ -49,14 +55,19 @@ public class Player : MonoBehaviour {
 		if (controller.collisions.above || controller.collisions.below) {
 			velocity.y = 0.0f;
 		}
+        anim.SetBool("is_moving", false);
 
 		float inputX = 0.0f;
 		if (Input.GetKey(leftKey)) {
 			inputX = -1.0f;
+            anim.SetBool("is_moving", true);
+            sprite.flipX = false;
 		} else if (Input.GetKey(rightKey)) {
 			inputX = 1.0f;
-		}
-		float inputY = 0.0f;
+            anim.SetBool("is_moving", true);
+            sprite.flipX = true;
+        }
+        float inputY = 0.0f;
 		if (Input.GetKey(upKey)) {
 			inputY = 1.0f;
 		} else if (Input.GetKey(downKey) ){
