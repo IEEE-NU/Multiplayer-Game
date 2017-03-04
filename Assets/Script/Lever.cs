@@ -7,10 +7,13 @@ public class Lever : MonoBehaviour {
 
 	public string collideThisPlayer = "Player 1";
 	public string geyserID = "default";
-	List<Player> overlappingPlayer = new List<Player> (); 
+	List<Player> overlappingPlayer = new List<Player> ();
+    public Material unusedMaterial;
+    public float timeOn = 3.0f;
+    public bool turnedOn = false;
 
-	// Use this for initialization
-	void Start () { }
+    // Use this for initialization
+    void Start () { }
 
 	// Update is called once per frame
 	void Update () {
@@ -19,12 +22,30 @@ public class Lever : MonoBehaviour {
 				activateLever (play);
 			}
 		}
+        if (turnedOn)
+        {
+            Debug.Log("Lever Activated");
+            timeOn -= Time.deltaTime;
+        }
+        if (timeOn <= 0f)
+        {
+            Debug.Log("Lever Deactivated");
+            Material temp = GetComponent<Renderer>().material;
+            GetComponent<Renderer>().material = unusedMaterial;
+            unusedMaterial = temp;
+            timeOn = 3.0f;
+            turnedOn = false;
+        }
 	}
 
 	internal void activateLever(Player interactor) {
 		Debug.Log ("Activating Lever");
-		Geyser[] geysers = GameObject.FindObjectsOfType<Geyser> ();
-		foreach (Geyser geyser in geysers) {
+        turnedOn = true;
+        Geyser[] geysers = GameObject.FindObjectsOfType<Geyser> ();
+        Material temp = GetComponent<Renderer>().material;
+        GetComponent<Renderer>().material = unusedMaterial;
+        unusedMaterial = temp;
+        foreach (Geyser geyser in geysers) {
 			if (geyser.geyserID == geyserID) {
 				geyser.activateGeyser(3.0f);
 			}
