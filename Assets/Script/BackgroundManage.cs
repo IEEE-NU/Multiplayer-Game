@@ -5,6 +5,7 @@ using System.Collections;
 public class BackgroundManage : MonoBehaviour {
 
 	public bool scrolling, paralax,autoScroll,lockOnCam;
+	public GameObject cameraFollow;
 	public float backgroundSize; 
 	public float paralaxSpeed;
 	public Vector3 innateSpeed;
@@ -18,7 +19,11 @@ public class BackgroundManage : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		cameraTransform = FindObjectOfType<CameraFollow>().transform;
+		if (cameraFollow) {
+			cameraTransform = cameraFollow.transform;
+		} else {
+			cameraTransform = FindObjectOfType<CameraFollow>().transform;
+		}
 		layers = new Transform[transform.childCount];
 		for (int i = 0; i < transform.childCount; i++) {
 			layers [i] = transform.GetChild (i);
