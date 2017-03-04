@@ -32,11 +32,13 @@ public class Geyser : MonoBehaviour {
 			if (isPlaying == false) {
 				isPlaying = true;
 				geyserParticles.Play ();
+				Debug.Log ("Geyser starting");
 			}
 		} else {
 			if (isPlaying == false) {
 				geyserParticles.Stop ();
 				isPlaying = true;
+				Debug.Log ("Geyser stopping");
 			}
 		}
 	}
